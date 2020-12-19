@@ -7,7 +7,7 @@ I just changed some parts and also colorized it 😉.
 
 ### [!] About unsplash
 Photos for everyone
-Over 2 million free high-resolution images brought to you by the world’s most generous community of photographers[...](https://unsplash.com/about)
+Over 2 million free high-resolution images brought to you by the world’s most generous community of photographers. [Read More](https://unsplash.com/about)
 
 ### [!] About Script unsplash-wallpaper-downloader (Downloader.py)
 A project for download wallpaper from site unsplash.com
