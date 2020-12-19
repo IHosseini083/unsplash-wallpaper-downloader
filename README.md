@@ -20,4 +20,4 @@ A project for download wallpaper from site unsplash.com
 --------------------------------------------------------------------
 ### Screenshots
 ![](https://github.com/ALIILAPRO/unsplash-wallpaper-downloader/blob/main/sc/sc%20(1).png)
-![](https://github.com/ALIILAPRO/unsplash-wallpaper-downloader/blob/main/sc/sc%20(2).png)
+
