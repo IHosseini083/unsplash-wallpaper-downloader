@@ -19,5 +19,5 @@ A project for download wallpaper from site unsplash.com
 6. Run the script and use it
 --------------------------------------------------------------------
 ### Screenshots
-![](https://github.com/ALIILAPRO/unsplash-wallpaper-downloader/blob/main/sc/sc%20(1).png)
+![](https://github.com/IHosseini083/unsplash-wallpaper-downloader/blob/main/sc/sc%20(1).png)
 
