@@ -7,14 +7,14 @@ I just changed some parts and also colorized it 😉.
 
 ### [!] About unsplash
 Photos for everyone
-Over 2 million free high-resolution images brought to you by the world’s most generous community of photographers.[Read more](https://unsplash.com/about)
+Over 2 million free high-resolution images brought to you by the world’s most generous community of photographers[...](https://unsplash.com/about)
 
 ### [!] About Script unsplash-wallpaper-downloader (Downloader.py)
 A project for download wallpaper from site unsplash.com
 
 --------------------------------------------------------------------
 ### [?] How to use this script on ( windows, mac, linux )
-1. First download python and install on your system. [Python +3.8](https://www.python.org/downloads/)
+1. First download python and install on your system. [Download Python +3.8](https://www.python.org/downloads/)
 2. Download [this project](https://codeload.github.com/IHosseini083/unsplash-wallpaper-downloader/zip/main) and extract it.
 3. Open a cmd or terminal or shell in the extracted directory.
 4. Install requirements `python -m pip install -r requirements.txt`
