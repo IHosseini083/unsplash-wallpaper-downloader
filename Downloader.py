@@ -33,8 +33,10 @@ def start_script():
                        About Script::>
                        
                         *  With this script, you can download wallpaper
-                        *  from site unsplash.com                                                                               
-
+                        *  from "unsplash.com" by giving it a keyword,
+                        *  then it downloads a random image with that keyword.              
+                                                                                        
+ # =================================================================================================== #
                '''
     
     print(Fore.LIGHTRED_EX + banner)
@@ -88,65 +90,49 @@ def download():
                       Fore.LIGHTCYAN_EX + " Enter Your KEYWORD (e.g. flower,sun) >> ")
         # More sizes can be add later
         print("\n\n" + Fore.LIGHTGREEN_EX + " [" + Fore.LIGHTYELLOW_EX + "+" + Fore.LIGHTGREEN_EX + "]" + 
-              Fore.LIGHTCYAN_EX + " Sizes:" + Fore.LIGHTWHITE_EX + "\n\n\t[1] 1920x1080\n" + "\n\t[2] 1600x900")
+              Fore.LIGHTCYAN_EX + " Sizes:" + Fore.LIGHTWHITE_EX + "\n\n\t[1] 1920x1080\n" + "\n\t[2] 1600x900\n" + "\n\t[3] 800x600")
         
         img_size = input("\n\n" + Fore.LIGHTGREEN_EX + " [" + Fore.LIGHTYELLOW_EX + "+" + Fore.LIGHTGREEN_EX + "]" +
               Fore.LIGHTCYAN_EX + " Pick Image Size (Enter Its Number - Default: 1920) >> ")
         
         print("\n")
-        # Changed ./wp to ./Downloads
-        DOWNLOAD_FOLDER = './Downloads'
-        # Changed filename with entered kewword and a random digits-ascii_letters and changed file suffix to .png
-        FILE_NAME = '{}-{}.png'.format(kword.capitalize(), genString(7))
         
-        FILE_PATH = '{}/{}'.format(DOWNLOAD_FOLDER, FILE_NAME)
-
-        BASE_URL = 'https://source.unsplash.com'
-        
-        Path(DOWNLOAD_FOLDER).mkdir(parents=True, exist_ok=True)
-
         if img_size == 1:
             
             RES_URL = "1920x1080"
-            
-            URL = '{}/{}/?{}'.format(BASE_URL, RES_URL, kword)
-            # Searching status
-            search_animation(101)
-            
-            img_data = req(URL).content
-            
-            with open(FILE_PATH, 'wb') as handler:
-                
-                handler.write(img_data)
         
         elif img_size == 2:
             
             RES_URL = "1600x900"
             
-            URL = '{}/{}/?{}'.format(BASE_URL, RES_URL, kword)
-            # Searching status
-            search_animation(101)
-
-            img_data = req(URL).content
-
-            with open(FILE_PATH, 'wb') as handler:
-
-                handler.write(img_data)
+        elif img_size == 3:
             
+            RES_URL = "800x600"
+       
         else:
             
             RES_URL = "1920x1080"
+        # Changed ./wp to ./Downloads
+        DOWNLOAD_FOLDER = './Downloads'
+        # Changed filename with entered kewword and a random digits-ascii_letters and changed file suffix to .png
+        FILE_NAME = '{}_{}_{}.png'.format(kword.capitalize(), RES_URL ,genString(7))
+        
+        FILE_PATH = '{}/{}'.format(DOWNLOAD_FOLDER, FILE_NAME)
 
-            URL = '{}/{}/?{}'.format(BASE_URL, RES_URL, kword)
-            # Searching status
-            search_animation(101)
+        BASE_URL = 'https://source.unsplash.com'
 
-            img_data = req(URL).content
-
-            with open(FILE_PATH, 'wb') as handler:
-
-                handler.write(img_data)
-                        
+        URL = '{}/{}/?{}'.format(BASE_URL, RES_URL, kword)
+        
+        Path(DOWNLOAD_FOLDER).mkdir(parents=True, exist_ok=True)
+        # Searching status
+        search_animation(101)
+            
+        img_data = req(URL).content
+            
+        with open(FILE_PATH, 'wb') as handler:
+                
+            handler.write(img_data)
+        
         print("\n\n" + Fore.LIGHTGREEN_EX + " [" + Fore.LIGHTYELLOW_EX + "+" + Fore.LIGHTGREEN_EX + "]" + 
               Fore.LIGHTCYAN_EX + " Wallpaper "+Fore.LIGHTWHITE_EX+"[{}]".format(FILE_NAME)+ Fore.LIGHTCYAN_EX+" Successfully Saved In Downloads Folder.\n\n")
         
@@ -169,7 +155,7 @@ def download():
         
         exit()
     
-def run():
+def start():
     
     while True:
        
@@ -212,4 +198,4 @@ def run():
         
 if __name__ == "__main__":
         
-    run()
+    start()
