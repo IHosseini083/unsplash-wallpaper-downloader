@@ -5,15 +5,16 @@ from string import ascii_letters, digits
 from sys import exit, stdout
 from time import sleep
 
-from colorama import Fore
+from colorama import Fore, init
 from requests import get
 
+init()
 
 def start_script():
         
     system('cls' if name == 'nt' else 'clear')
     # info
-    script_version  = '1.1'
+    script_version  = '2.0'
     coder = "ALIILAPRO From IRAN"
     telegram_id = "aliilapro"
     channel = "Source-Pro"
@@ -27,7 +28,7 @@ def start_script():
  | |__| | | | \__ \ |_) | | (_| \__ \ | | | | |__| | (_) \ V  V /| | | | | (_) | (_| | (_| |  __/ |   
   \____/|_| |_|___/ .__/|_|\__,_|___/_| |_| |_____/ \___/ \_/\_/ |_| |_|_|\___/ \__,_|\__,_|\___|_|   
                   | |                                                                                 
-                  |_|  Version_{script_version} -- Coder >> {coder} -- Telegram >> {telegram_id}
+                  |_|  Version >> {script_version} -- Coder >> {coder} -- Telegram >> {telegram_id}
                        Channel Telegram >> {channel}
                        
                        About Script::>
@@ -40,7 +41,7 @@ def start_script():
     print(Fore.LIGHTRED_EX + banner)
     
     print("\n\n" + Fore.LIGHTGREEN_EX + " [" + Fore.LIGHTYELLOW_EX + "Note" + Fore.LIGHTGREEN_EX + "]" +
-          Fore.RESET + " Press Ctrl + C To Exit.\n")
+          Fore.LIGHTRED_EX + " Press Ctrl + C To Exit.\n")
 
 def genString(stringLength):
     
@@ -60,9 +61,9 @@ def req(url):
         
     return r
 
-def search_animation(percent):
+def search_animation(percent, keyword):
 
-    animation = list(range(percent))
+    animation = list(range(percent + 1))
     
     # animation.reverse()
     
@@ -71,12 +72,12 @@ def search_animation(percent):
         sleep(0.1)
         
         stdout.write("\r" + Fore.LIGHTGREEN_EX + " [" + Fore.LIGHTYELLOW_EX + "!" + Fore.LIGHTGREEN_EX + "] " + 
-                     Fore.LIGHTCYAN_EX + "Sarching {}%".format(animation[r % len(animation)]))
+                     Fore.LIGHTCYAN_EX + "Sarching "+Fore.LIGHTWHITE_EX+f"[{keyword}]"+Fore.LIGHTCYAN_EX +" {}%".format(animation[r % len(animation)]))
 
         stdout.flush()
     
     print("\n\n" + Fore.LIGHTGREEN_EX + " [" + Fore.LIGHTYELLOW_EX +"+" + Fore.LIGHTGREEN_EX +"]" + 
-          Fore.LIGHTCYAN_EX + " Downloading... ")
+          Fore.LIGHTCYAN_EX + " Downloading "+Fore.LIGHTWHITE_EX+f"[{keyword}]"+Fore.LIGHTCYAN_EX +" ...")
     
 def download():
     
@@ -84,57 +85,41 @@ def download():
         
         start_script()
         # Enter your desired keyword
-        kword = input("\n" + Fore.LIGHTGREEN_EX + " [" + Fore.LIGHTYELLOW_EX +"+" + Fore.LIGHTGREEN_EX +"]" + 
-                      Fore.LIGHTCYAN_EX + " Enter Your KEYWORD (e.g. flower,sun) >> ")
-        # More sizes can be add later
-        print("\n\n" + Fore.LIGHTGREEN_EX + " [" + Fore.LIGHTYELLOW_EX + "+" + Fore.LIGHTGREEN_EX + "]" + 
-              Fore.LIGHTCYAN_EX + " Sizes:" + Fore.LIGHTWHITE_EX + "\n\n\t[1] 1920x1080\n" + "\n\t[2] 1600x900\n" + "\n\t[3] 800x600")
-        
-        img_size = input("\n\n" + Fore.LIGHTGREEN_EX + " [" + Fore.LIGHTYELLOW_EX + "+" + Fore.LIGHTGREEN_EX + "]" +
-              Fore.LIGHTCYAN_EX + " Pick Image Size (Enter Its Number - Default: 1920) >> ")
-        
-        print("\n")
-        
-        if img_size == 1:
-            
-            RES_URL = "1920x1080"
-        
-        elif img_size == 2:
-            
-            RES_URL = "1600x900"
-            
-        elif img_size == 3:
-            
-            RES_URL = "800x600"
+        KEYWORDS = input("\n" + Fore.LIGHTGREEN_EX + " [" + Fore.LIGHTYELLOW_EX +"+" + Fore.LIGHTGREEN_EX +"]" + 
+                      Fore.LIGHTCYAN_EX + " Enter Your KEYWORDS With Comma [e.g. flower,sun,...] >> "+Fore.LIGHTWHITE_EX+"").split(",")
        
-        else:
-            
-            RES_URL = "1920x1080"
+        print("\n")
+       
+        RES_URL = "1920x1080"    
         # Changed ./wp to ./Downloads
         DOWNLOAD_FOLDER = './Downloads'
-        # Changed filename with entered kewword and a random digits-ascii_letters and changed file suffix to .png
-        FILE_NAME = '{}_{}_{}.png'.format(kword.capitalize(), RES_URL ,genString(7))
-        
-        FILE_PATH = '{}/{}'.format(DOWNLOAD_FOLDER, FILE_NAME)
 
         BASE_URL = 'https://source.unsplash.com'
+        
+        for kword in KEYWORDS: 
+            # Changed filename with entered kewword and a random digits-ascii_letters and changed file suffix to .png
+            FILE_NAME = '{}-{}-{}.png'.format(kword.capitalize(), RES_URL ,genString(7))
+            
+            FILE_PATH = '{}/{}'.format(DOWNLOAD_FOLDER, FILE_NAME)
 
-        URL = '{}/{}/?{}'.format(BASE_URL, RES_URL, kword)
-        
-        Path(DOWNLOAD_FOLDER).mkdir(parents=True, exist_ok=True)
-        # Searching status
-        search_animation(101)
+            URL = '{}/{}/?{}'.format(BASE_URL, RES_URL, kword)
             
-        img_data = req(URL).content
-            
-        with open(FILE_PATH, 'wb') as handler:
+            Path(DOWNLOAD_FOLDER).mkdir(parents=True, exist_ok=True)
+            # Searching status
+            search_animation(100, kword)
                 
-            handler.write(img_data)
-        
-        print("\n\n" + Fore.LIGHTGREEN_EX + " [" + Fore.LIGHTYELLOW_EX + "+" + Fore.LIGHTGREEN_EX + "]" + 
-              Fore.LIGHTCYAN_EX + " Wallpaper "+Fore.LIGHTWHITE_EX+"[{}]".format(FILE_NAME)+ Fore.LIGHTCYAN_EX+" Successfully Saved In Downloads Folder.\n\n")
-        
-        input("\n\n" + Fore.LIGHTGREEN_EX+" ["+Fore.LIGHTYELLOW_EX+"+"+ Fore.LIGHTGREEN_EX+"] "+
+            img_data = req(URL).content
+                
+            with open(FILE_PATH, 'wb') as handler:
+                    
+                handler.write(img_data)
+            
+            print("\n\n" + Fore.LIGHTGREEN_EX + " [" + Fore.LIGHTYELLOW_EX + "+" + Fore.LIGHTGREEN_EX + "]" + 
+                Fore.LIGHTCYAN_EX + " Wallpaper "+Fore.LIGHTWHITE_EX+"[{}]".format(FILE_NAME)+ Fore.LIGHTCYAN_EX+" Successfully Saved In Downloads Folder.\n")
+            
+            print(Fore.LIGHTBLACK_EX+"\n -------------------------------- \n")
+            
+        input("\n" + Fore.LIGHTGREEN_EX+" ["+Fore.LIGHTYELLOW_EX+"+"+ Fore.LIGHTGREEN_EX+"] "+
               Fore.LIGHTRED_EX+"Press ENTER To Back To Menu... ")
         
     except Exception as error:
@@ -144,7 +129,7 @@ def download():
         print("\n\n" + Fore.LIGHTGREEN_EX+" ["+Fore.LIGHTYELLOW_EX+"!"+ Fore.LIGHTGREEN_EX+"] "+ 
               Fore.LIGHTRED_EX+"Error >>" + Fore.LIGHTWHITE_EX + f" {e}")
            
-        input("\n\n" + Fore.LIGHTGREEN_EX+" ["+Fore.LIGHTYELLOW_EX+"+"+ Fore.LIGHTGREEN_EX+"] "+
+        input("\n" + Fore.LIGHTGREEN_EX+" ["+Fore.LIGHTYELLOW_EX+"+"+ Fore.LIGHTGREEN_EX+"] "+
               Fore.LIGHTRED_EX+"Press ENTER To Back To Menu... ")
     
     except KeyboardInterrupt:
@@ -162,7 +147,7 @@ def start():
            start_script()
            
            user_input = input("\n\n" + Fore.LIGHTGREEN_EX + " [" + Fore.LIGHTYELLOW_EX +"?" + Fore.LIGHTGREEN_EX +"]" + 
-                              Fore.LIGHTCYAN_EX + " Do You Want To Download A New Wallpaper? (Y/n - Default: YES) >> ")
+                              Fore.LIGHTCYAN_EX + " Do You Want To Download A New Wallpapers? [Y/n - Default: YES] >> "+Fore.LIGHTWHITE_EX+"")
         
            if user_input.lower() == "y":
                
@@ -185,12 +170,12 @@ def start():
            print("\n\n" + Fore.LIGHTGREEN_EX+" ["+Fore.LIGHTYELLOW_EX+"!"+ Fore.LIGHTGREEN_EX+"] "+ 
                  Fore.LIGHTRED_EX+"Error >>" + Fore.LIGHTWHITE_EX + f" {e}")
            
-           input("\n\n" + Fore.LIGHTGREEN_EX+" ["+Fore.LIGHTYELLOW_EX+"+"+ Fore.LIGHTGREEN_EX+"] "+
+           input("\n" + Fore.LIGHTGREEN_EX+" ["+Fore.LIGHTYELLOW_EX+"+"+ Fore.LIGHTGREEN_EX+"] "+
                  Fore.LIGHTRED_EX+"Press ENTER To Back To Menu... ")
        
        except KeyboardInterrupt:
            
-           system("cls" if name == "nt" else "clear")
+           system("cls" i name == "nt" else "clear")
            
            break
         
