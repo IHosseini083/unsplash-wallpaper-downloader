@@ -175,7 +175,7 @@ def start():
        
        except KeyboardInterrupt:
            
-           system("cls" i name == "nt" else "clear")
+           system("cls" if name == "nt" else "clear")
            
            break
         
