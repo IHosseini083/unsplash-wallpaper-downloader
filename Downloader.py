@@ -34,9 +34,7 @@ def start_script():
                        
                         *  With this script, you can download wallpaper
                         *  from "unsplash.com" by giving it a keyword,
-                        *  then it downloads a random image with that keyword.              
-                                                                                        
- # =================================================================================================== #
+                        *  then it downloads a random image with that keyword.                                                                                                      
                '''
     
     print(Fore.LIGHTRED_EX + banner)
