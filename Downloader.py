@@ -2,7 +2,7 @@ from os import name, system
 from pathlib import Path
 from random import choice
 from string import ascii_letters, digits
-from sys import exit, stdout
+from sys import exit
 from time import sleep
 
 from colorama import Fore, init
@@ -10,15 +10,33 @@ from requests import get
 
 init()
 
-def start_script():
+class TMPrinter():
+    
+    def __init__(self):
+    
+        self.max_len = 0
+
+    def out(self, text):
+    
+        if len(text) > self.max_len:
+    
+            self.max_len = len(text)
+    
+        else:
+    
+            text += (" " * (self.max_len - len(text)))
+    
+        print(text, end='\r')
+        
+def script_banner():
         
     system('cls' if name == 'nt' else 'clear')
-    # info
+
     script_version  = '2.0'
     coder = "ALIILAPRO From IRAN"
     telegram_id = "aliilapro"
     channel = "Source-Pro"
-    # Script banner
+
     banner = f'''
 
   _    _                 _           _       _____                      _                 _           
@@ -60,30 +78,14 @@ def req(url):
         r = get(url)
         
     return r
-
-def search_animation(percent, keyword):
-
-    animation = list(range(percent + 1))
-    
-    # animation.reverse()
-    
-    for r in range(len(animation)):
-        
-        sleep(0.1)
-        
-        stdout.write("\r" + Fore.LIGHTGREEN_EX + " [" + Fore.LIGHTYELLOW_EX + "!" + Fore.LIGHTGREEN_EX + "] " + 
-                     Fore.LIGHTCYAN_EX + "Sarching "+Fore.LIGHTWHITE_EX+f"[{keyword}]"+Fore.LIGHTCYAN_EX +" {}%".format(animation[r % len(animation)]))
-
-        stdout.flush()
-    
-    print("\n\n" + Fore.LIGHTGREEN_EX + " [" + Fore.LIGHTYELLOW_EX +"+" + Fore.LIGHTGREEN_EX +"]" + 
-          Fore.LIGHTCYAN_EX + " Downloading "+Fore.LIGHTWHITE_EX+f"[{keyword}]"+Fore.LIGHTCYAN_EX +" ...")
     
 def download():
     
     try:
         
-        start_script()
+        printout = TMPrinter()
+        
+        script_banner()
         # Enter your desired keyword
         KEYWORDS = input("\n" + Fore.LIGHTGREEN_EX + " [" + Fore.LIGHTYELLOW_EX +"+" + Fore.LIGHTGREEN_EX +"]" + 
                       Fore.LIGHTCYAN_EX + " Enter Your KEYWORDS With Comma [e.g. flower,sun,...] >> "+Fore.LIGHTWHITE_EX+"").split(",")
@@ -96,40 +98,60 @@ def download():
 
         BASE_URL = 'https://source.unsplash.com'
         
-        for kword in KEYWORDS: 
-            # Changed filename with entered kewword and a random digits-ascii_letters and changed file suffix to .png
+        for kword in KEYWORDS:    
+            # Changed filename with entered kewword and a random digits-ascii_letters and changed file suffix to .png            
             FILE_NAME = '{}-{}-{}.png'.format(kword.capitalize(), RES_URL ,genString(7))
-            
+                
             FILE_PATH = '{}/{}'.format(DOWNLOAD_FOLDER, FILE_NAME)
 
             URL = '{}/{}/?{}'.format(BASE_URL, RES_URL, kword)
-            
+                
             Path(DOWNLOAD_FOLDER).mkdir(parents=True, exist_ok=True)
-            # Searching status
-            search_animation(100, kword)
                 
-            img_data = req(URL).content
+            printout.out(Fore.LIGHTGREEN_EX + " [" + Fore.LIGHTYELLOW_EX +"+" + Fore.LIGHTGREEN_EX +"]" + 
+                         Fore.LIGHTCYAN_EX + " Searching"+Fore.LIGHTWHITE_EX+f" [{kword}] "+Fore.LIGHTCYAN_EX+"... ")
                 
-            with open(FILE_PATH, 'wb') as handler:
+            sleep(5)
+                
+            printout.out(Fore.LIGHTGREEN_EX + " [" + Fore.LIGHTYELLOW_EX +"+" + Fore.LIGHTGREEN_EX +"]" + 
+                         Fore.LIGHTCYAN_EX + " Downloading"+Fore.LIGHTWHITE_EX+f" [{kword}] "+Fore.LIGHTCYAN_EX+"... ")
                     
+            img_data = req(URL).content               
+                    
+            with open(FILE_PATH, 'wb') as handler:
+                        
                 handler.write(img_data)
-            
-            print("\n\n" + Fore.LIGHTGREEN_EX + " [" + Fore.LIGHTYELLOW_EX + "+" + Fore.LIGHTGREEN_EX + "]" + 
-                Fore.LIGHTCYAN_EX + " Wallpaper "+Fore.LIGHTWHITE_EX+"[{}]".format(FILE_NAME)+ Fore.LIGHTCYAN_EX+" Successfully Saved In Downloads Folder.\n")
-            
-            print(Fore.LIGHTBLACK_EX+"\n -------------------------------- \n")
+                    
+            printout.out(Fore.LIGHTGREEN_EX + " [" + Fore.LIGHTYELLOW_EX +"+" + Fore.LIGHTGREEN_EX +"]" + 
+                         Fore.LIGHTCYAN_EX + " Downloaded ! ")            
+                
+            sleep(4)
+                
+            printout.out(Fore.LIGHTGREEN_EX + " [" + Fore.LIGHTYELLOW_EX + "+" + Fore.LIGHTGREEN_EX + "]" + 
+                         Fore.LIGHTCYAN_EX + " Wallpaper "+Fore.LIGHTWHITE_EX+"[{}]".format(FILE_NAME)+ Fore.LIGHTCYAN_EX+" Successfully Saved In Downloads Folder.")
+                
+            print(Fore.LIGHTBLACK_EX+"\n\n -------------------------------------------------------- \n\n")
             
         input("\n" + Fore.LIGHTGREEN_EX+" ["+Fore.LIGHTYELLOW_EX+"+"+ Fore.LIGHTGREEN_EX+"] "+
               Fore.LIGHTRED_EX+"Press ENTER To Back To Menu... ")
         
     except Exception as error:
         
+        printout = TMPrinter()
+        
         e = str(error)
+        
+        if "connection failed" in e:
+                
+            printout.out(Fore.LIGHTGREEN_EX+" ["+Fore.LIGHTYELLOW_EX+"!"+ Fore.LIGHTGREEN_EX+"] "+ 
+                         Fore.LIGHTRED_EX+"Error >>" + Fore.LIGHTWHITE_EX + " Please Check Your Connection ! Or You May Use A VPN.")    
+       
+        else:
            
-        print("\n\n" + Fore.LIGHTGREEN_EX+" ["+Fore.LIGHTYELLOW_EX+"!"+ Fore.LIGHTGREEN_EX+"] "+ 
-              Fore.LIGHTRED_EX+"Error >>" + Fore.LIGHTWHITE_EX + f" {e}")
+            printout.out(Fore.LIGHTGREEN_EX+" ["+Fore.LIGHTYELLOW_EX+"!"+ Fore.LIGHTGREEN_EX+"] "+ 
+                         Fore.LIGHTRED_EX+"Error >>" + Fore.LIGHTWHITE_EX + f" {e}")
            
-        input("\n" + Fore.LIGHTGREEN_EX+" ["+Fore.LIGHTYELLOW_EX+"+"+ Fore.LIGHTGREEN_EX+"] "+
+        input("\n\n" + Fore.LIGHTGREEN_EX+" ["+Fore.LIGHTYELLOW_EX+"+"+ Fore.LIGHTGREEN_EX+"] "+
               Fore.LIGHTRED_EX+"Press ENTER To Back To Menu... ")
     
     except KeyboardInterrupt:
@@ -144,7 +166,7 @@ def start():
        
        try:
            
-           start_script()
+           script_banner()
            
            user_input = input("\n\n" + Fore.LIGHTGREEN_EX + " [" + Fore.LIGHTYELLOW_EX +"?" + Fore.LIGHTGREEN_EX +"]" + 
                               Fore.LIGHTCYAN_EX + " Do You Want To Download A New Wallpapers? [Y/n - Default: YES] >> "+Fore.LIGHTWHITE_EX+"")
