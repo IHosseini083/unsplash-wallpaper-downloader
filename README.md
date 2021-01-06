@@ -2,7 +2,7 @@
 ![Code Size](https://img.shields.io/github/languages/code-size/IHosseini083/unsplash-wallpaper-downloader) ![Top Language](https://img.shields.io/github/languages/top/IHosseini083/unsplash-wallpaper-downloader) ![GitHub stars](https://img.shields.io/github/stars/IHosseini083/unsplash-wallpaper-downloader) ![](https://img.shields.io/badge/The%20Long%20Hope-%F0%9F%98%8E%E2%9C%8C-green)
 --------------------------------------------------------------------
 ### [!] Disclaimer
-I'm not the coder and this is a fork of [unsplash_wallpaper_downloader](https://github.com/ALIILAPRO/unsplash-wallpaper-downloader)
+I'm not the coder and this is a fork of [unsplash_wallpaper_downloader](https://github.com/ALIILAPRO/unsplash-wallpaper-downloader) by [ALIILAPRO](https://github.com/ALIILAPRO)
 I just changed some parts and also colorized it 😉.
 
 ### [!] About unsplash
