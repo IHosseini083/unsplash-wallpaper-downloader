@@ -200,7 +200,7 @@ def start():
            system("cls" if name == "nt" else "clear")
            
            break
-        
+
 if __name__ == "__main__":
         
     start()
